@@ -1,7 +1,10 @@
 import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 
+// Log environment setup
+console.log('Initializing Plaid client with environment:', process.env.PLAID_ENV || 'sandbox');
+
 const configuration = new Configuration({
-  basePath: PlaidEnvironments[process.env.NEXT_PUBLIC_PLAID_ENV || 'sandbox'],
+  basePath: PlaidEnvironments[process.env.PLAID_ENV || 'sandbox'],
   baseOptions: {
     headers: {
       'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID,
@@ -10,4 +13,5 @@ const configuration = new Configuration({
   },
 });
 
+// Create and export the client
 export const plaidClient = new PlaidApi(configuration);
