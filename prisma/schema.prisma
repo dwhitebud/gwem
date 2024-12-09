@@ -1,0 +1,74 @@
+// This is your Prisma schema file
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  plaidAccounts PlaidAccount[]
+}
+
+model PlaidAccount {
+  id                String    @id @default(cuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  institutionId    String
+  institutionName  String
+  accessToken      String
+  itemId           String    @unique
+  status           String    @default("active") // active, error, disconnected
+  error            String?
+  lastSyncedAt     DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  accounts         Account[]
+
+  @@index([userId])
+}
+
+model Account {
+  id              String       @id
+  plaidAccountId  String
+  plaidAccount    PlaidAccount @relation(fields: [plaidAccountId], references: [id])
+  name            String
+  officialName    String?
+  type            String
+  subtype         String?
+  mask            String?
+  currentBalance  Float?
+  availableBalance Float?
+  isoCurrencyCode String?
+  lastSyncedAt    DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  transactions    Transaction[]
+
+  @@index([plaidAccountId])
+}
+
+model Transaction {
+  id              String    @id
+  accountId       String
+  account         Account   @relation(fields: [accountId], references: [id])
+  amount          Float
+  date            DateTime
+  name            String
+  merchantName    String?
+  pending         Boolean
+  category        String[]
+  type            String?
+  isoCurrencyCode String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([accountId])
+  @@index([date])
+}

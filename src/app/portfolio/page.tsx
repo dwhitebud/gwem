@@ -1,10 +1,7 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Portfolio Management - GWEM',
-  description: 'Manage your investment portfolio and asset allocations',
-}
+import Link from 'next/link'
+import PlaidLink from '@/components/PlaidLink'
 
 export default function PortfolioPage() {
   return (
@@ -27,6 +24,15 @@ export default function PortfolioPage() {
             </li>
           </ul>
         </nav>
+
+        {/* Connect Accounts Section */}
+        <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Connect Your Accounts</h2>
+          <p className="text-gray-600 mb-4">
+            Connect your financial accounts to get a comprehensive view of your portfolio.
+          </p>
+          <PlaidLink />
+        </section>
         
         {/* Portfolio Overview Section */}
         <section className="bg-white rounded-lg shadow-md p-6 mb-6">

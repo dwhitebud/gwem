@@ -21,6 +21,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/portfolio/page.js"
     ],
+    "/api/plaid/link-token/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/plaid/link-token/route.js"
+    ],
     "/risk-analysis/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -41,35 +46,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/reports/page.js"
     ],
-    "/tax-planning/page": [
+    "/api/plaid/exchange-token/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/tax-planning/page.js"
-    ],
-    "/advisor-hub/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/page.js"
-    ],
-    "/advisor-hub/email/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/email/page.js"
-    ],
-    "/advisor-hub/schedule/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/schedule/page.js"
-    ],
-    "/advisor-hub/documents/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/documents/page.js"
-    ],
-    "/portfolio/trust-and-corporate/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/portfolio/trust-and-corporate/page.js"
+      "static/chunks/app/api/plaid/exchange-token/route.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
