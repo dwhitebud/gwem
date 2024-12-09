@@ -1,72 +1,91 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Tab } from '@headlessui/react'
-import { EnvelopeIcon, ChatBubbleLeftRightIcon, CalendarIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
-import Chat from './Chat'
-import EmailCompose from './EmailCompose'
-import MeetingScheduler from './MeetingScheduler'
-import DocumentSharing from './DocumentSharing'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import Chat from './Chat';
+import EmailCompose from './EmailCompose';
+import MeetingScheduler from './MeetingScheduler';
+import DocumentSharing from './DocumentSharing';
 
 export default function AdvisorHub() {
-  const [selectedTab, setSelectedTab] = useState(0)
+  const pathname = usePathname();
 
-  const tabs = [
-    { name: 'Chat', icon: ChatBubbleLeftRightIcon, component: Chat },
-    { name: 'Email', icon: EnvelopeIcon, component: EmailCompose },
-    { name: 'Schedule Meeting', icon: CalendarIcon, component: MeetingScheduler },
-    { name: 'Documents', icon: DocumentTextIcon, component: DocumentSharing },
-  ]
+  // Determine which component to show based on the current route
+  const renderContent = () => {
+    switch (pathname) {
+      case '/advisor-hub/email':
+        return <EmailCompose />;
+      case '/advisor-hub/schedule':
+        return <MeetingScheduler />;
+      case '/advisor-hub/documents':
+        return <DocumentSharing />;
+      default:
+        return <Chat />;
+    }
+  };
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="max-w-7xl mx-auto">
-        <div className="px-4 py-5 sm:px-6">
-          <h1 className="text-2xl font-semibold text-gray-900">Advisor Hub</h1>
-          <p className="mt-1 text-sm text-gray-500">
+    <div className="bg-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
+      <div className="max-w-[1280px] mx-auto">
+        <div className="px-6 py-8">
+          <h1 className="text-3xl font-bold text-[#025584]">Advisor Hub</h1>
+          <p className="mt-2 text-[#02558499]">
             Coordinate with your financial planners, lawyers, and other professionals
           </p>
+
+          {/* Sub-navigation */}
+          <div className="mt-6 border-b border-gray-200">
+            <nav className="flex space-x-8">
+              <Link
+                href="/advisor-hub"
+                className={`pb-4 px-1 font-medium text-sm ${
+                  pathname === '/advisor-hub'
+                    ? 'border-b-2 border-[#025584] text-[#025584]'
+                    : 'text-gray-500 hover:text-[#025584]'
+                }`}
+              >
+                Chat
+              </Link>
+              <Link
+                href="/advisor-hub/email"
+                className={`pb-4 px-1 font-medium text-sm ${
+                  pathname === '/advisor-hub/email'
+                    ? 'border-b-2 border-[#025584] text-[#025584]'
+                    : 'text-gray-500 hover:text-[#025584]'
+                }`}
+              >
+                Email
+              </Link>
+              <Link
+                href="/advisor-hub/schedule"
+                className={`pb-4 px-1 font-medium text-sm ${
+                  pathname === '/advisor-hub/schedule'
+                    ? 'border-b-2 border-[#025584] text-[#025584]'
+                    : 'text-gray-500 hover:text-[#025584]'
+                }`}
+              >
+                Schedule Meeting
+              </Link>
+              <Link
+                href="/advisor-hub/documents"
+                className={`pb-4 px-1 font-medium text-sm ${
+                  pathname === '/advisor-hub/documents'
+                    ? 'border-b-2 border-[#025584] text-[#025584]'
+                    : 'text-gray-500 hover:text-[#025584]'
+                }`}
+              >
+                Documents
+              </Link>
+            </nav>
+          </div>
+
+          {/* Content area */}
+          <div className="mt-6">
+            {renderContent()}
+          </div>
         </div>
-
-        <Tab.Group selectedIndex={selectedTab} onChange={setSelectedTab}>
-          <Tab.List className="flex space-x-1 border-b border-gray-200 px-6">
-            {tabs.map((tab) => (
-              <Tab
-                key={tab.name}
-                className={({ selected }) =>
-                  classNames(
-                    'flex items-center space-x-2 py-4 px-4 text-sm font-medium border-b-2 outline-none',
-                    selected
-                      ? 'border-teal-500 text-teal-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  )
-                }
-              >
-                <tab.icon className="h-5 w-5" aria-hidden="true" />
-                <span>{tab.name}</span>
-              </Tab>
-            ))}
-          </Tab.List>
-
-          <Tab.Panels className="p-6">
-            {tabs.map((tab, idx) => (
-              <Tab.Panel
-                key={idx}
-                className={classNames(
-                  'rounded-xl focus:outline-none',
-                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-teal-400'
-                )}
-              >
-                <tab.component />
-              </Tab.Panel>
-            ))}
-          </Tab.Panels>
-        </Tab.Group>
       </div>
     </div>
-  )
+  );
 }

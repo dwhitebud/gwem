@@ -3,6 +3,11 @@
   "/page": "app/page.js",
   "/tax-planning/page": "app/tax-planning/page.js",
   "/advisor-hub/page": "app/advisor-hub/page.js",
-  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js",
-  "/portfolio/page": "app/portfolio/page.js"
+  "/advisor-hub/email/page": "app/advisor-hub/email/page.js",
+  "/advisor-hub/schedule/page": "app/advisor-hub/schedule/page.js",
+  "/advisor-hub/documents/page": "app/advisor-hub/documents/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/risk-analysis/page": "app/risk-analysis/page.js",
+  "/reports/page": "app/reports/page.js",
+  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js"
 }

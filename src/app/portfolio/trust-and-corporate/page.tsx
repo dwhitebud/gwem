@@ -69,25 +69,27 @@ export default function TrustAndCorporatePage() {
       <h1 className="text-[#025584] text-3xl font-bold mb-8">Trust & Corporate Assets</h1>
       
       {/* Entity Visualization */}
-      <div className="mb-8 h-[600px]">
-        <h2 className="text-[#025584] text-2xl font-semibold mb-4">Entity Relationships</h2>
-        <EntityGraph entities={entities} relationships={relationships} />
+      <div className="mb-8 bg-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)] p-6">
+        <h2 className="text-[#025584] text-2xl font-semibold mb-6">Entity Relationships</h2>
+        <div className="h-[600px]">
+          <EntityGraph entities={entities} relationships={relationships} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Entity List */}
         <section className="bg-white p-6 rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
-          <h2 className="text-[#025584] text-2xl font-semibold mb-4">Entities</h2>
+          <h2 className="text-[#025584] text-2xl font-semibold mb-6">Entities</h2>
           <div className="space-y-4">
             {entities.map(entity => (
               <div 
                 key={entity.id}
-                className="p-4 border rounded-lg cursor-pointer hover:bg-gray-50"
+                className="p-6 border border-[#E5E7EB] rounded-xl cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => setSelectedEntity(entity)}
               >
-                <h3 className="text-[#025584] font-medium">{entity.name}</h3>
-                <p className="text-[#025584CC] text-sm">Type: {entity.type}</p>
-                <p className="text-[#025584CC] text-sm">Established: {new Date(entity.dateEstablished).toLocaleDateString()}</p>
+                <h3 className="text-[#025584] text-lg font-semibold mb-2">{entity.name}</h3>
+                <p className="text-[#02558499] mb-1">Type: {entity.type}</p>
+                <p className="text-[#02558499]">Established: {new Date(entity.dateEstablished).toLocaleDateString()}</p>
               </div>
             ))}
           </div>
@@ -95,10 +97,10 @@ export default function TrustAndCorporatePage() {
 
         {/* Entity Details */}
         <section className="bg-white p-6 rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
-          <h2 className="text-[#025584] text-2xl font-semibold mb-4">Entity Details</h2>
+          <h2 className="text-[#025584] text-2xl font-semibold mb-6">Entity Details</h2>
           {selectedEntity ? (
-            <div>
-              <h3 className="text-[#025584] text-xl mb-2">{selectedEntity.name}</h3>
+            <div className="space-y-4">
+              <h3 className="text-[#025584] text-xl font-semibold mb-4">{selectedEntity.name}</h3>
               <div className="space-y-2">
                 <p className="text-[#025584CC]"><strong>Type:</strong> {selectedEntity.type}</p>
                 <p className="text-[#025584CC]"><strong>Date Established:</strong> {new Date(selectedEntity.dateEstablished).toLocaleDateString()}</p>

@@ -19,17 +19,17 @@ export default function EmailCompose() {
     <div className="max-w-3xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="to" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="to" className="block text-sm font-medium text-[#025584]">
             To
           </label>
-          <div className="mt-1">
+          <div className="mt-2">
             <input
               type="email"
               name="to"
               id="to"
               value={formData.to}
               onChange={(e) => setFormData({ ...formData, to: e.target.value })}
-              className="shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-[0_2px_4px_rgba(0,0,0,0.1)] focus:ring-[#00D47E] focus:border-[#00D47E] block w-full text-sm border-[#E5E7EB] rounded-xl p-3"
               placeholder="advisor@example.com"
               required
             />
@@ -37,34 +37,34 @@ export default function EmailCompose() {
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="subject" className="block text-sm font-medium text-[#025584]">
             Subject
           </label>
-          <div className="mt-1">
+          <div className="mt-2">
             <input
               type="text"
               name="subject"
               id="subject"
               value={formData.subject}
               onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-              className="shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-[0_2px_4px_rgba(0,0,0,0.1)] focus:ring-[#00D47E] focus:border-[#00D47E] block w-full text-sm border-[#E5E7EB] rounded-xl p-3"
               required
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="message" className="block text-sm font-medium text-[#025584]">
             Message
           </label>
-          <div className="mt-1">
+          <div className="mt-2">
             <textarea
               id="message"
               name="message"
               rows={8}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              className="shadow-[0_2px_4px_rgba(0,0,0,0.1)] focus:ring-[#00D47E] focus:border-[#00D47E] block w-full text-sm border border-[#E5E7EB] rounded-xl p-3"
               required
             />
           </div>
@@ -73,7 +73,7 @@ export default function EmailCompose() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            className="inline-flex items-center px-6 py-3 text-sm font-medium rounded-lg bg-[#00D47E] hover:bg-[#00D47ECC] text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00D47E]"
           >
             Send Email
           </button>

@@ -29,12 +29,33 @@ The dashboard provides a comprehensive view of your financial data:
 - Active cards display
 
 ### Navigation
-- **Main Menu**: Access all features through the left sidebar
-- **Quick Actions**: Use the top toolbar for common tasks:
-  - Add new transaction
-  - Send payment
-  - Request payment
-  
+The application features a consistent, intuitive navigation system:
+
+#### Global Navigation
+- Located at the top of every page
+- Main sections:
+  - Portfolio: Access your investment portfolio and asset management
+  - Risk Analysis: View and manage investment risks
+  - Reports: Access detailed financial reports and analytics
+  - Tax Planning: Manage tax strategies and planning
+  - Advisor Hub: Communicate with your financial professionals
+- Additional features:
+  - Notifications bell: View important updates and alerts
+  - Settings: Access application settings
+  - Contact Advisor: Quick access to advisor communication
+
+#### Advisor Hub Navigation
+When in the Advisor Hub, you'll find a dedicated sub-navigation bar with:
+- Chat: Real-time communication with advisors (default view)
+- Email: Send and receive formal communications
+- Schedule Meeting: Book appointments with your advisors
+- Documents: Share and manage important files
+
+To switch between Advisor Hub features:
+1. Click the desired section in the sub-navigation bar
+2. The active section will be highlighted
+3. Your content will update automatically
+
 ### Visual Design
 Our interface uses a clean, modern design with:
 - Clear typography using Helvetica

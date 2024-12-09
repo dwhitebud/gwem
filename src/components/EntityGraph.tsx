@@ -166,13 +166,15 @@ export default function EntityGraph({ entities, relationships }: EntityGraphProp
 }
 
 // Helper function to get color based on entity type
-function getEntityColor(type: Entity['type']) {
-  const colors: Record<Entity['type'], string> = {
-    trust: '#4CAF50',
-    corporation: '#2196F3',
-    llc: '#FF9800',
-    partnership: '#9C27B0',
-    other: '#607D8B'
-  };
-  return colors[type];
+function getEntityColor(type: Entity['type']): string {
+  switch (type) {
+    case 'trust':
+      return '#00D47E'; // Bright Green for Trust
+    case 'llc':
+      return '#025584'; // Deep Teal for LLC
+    case 'corporation':
+      return '#02558499'; // 60% Teal for Corporation
+    default:
+      return '#94A3B8'; // Default color from our status indicators
+  }
 }

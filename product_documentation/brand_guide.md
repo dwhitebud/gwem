@@ -41,12 +41,56 @@
   - Text Color: White
   - Border Radius: 8px
   - Padding: 12px 24px
+  - Hover: `#00D47ECC`
+  - Transition: colors 150ms ease
 - Secondary:
   - Background: White
   - Border: 1px solid `#025584`
   - Text Color: `#025584`
   - Border Radius: 8px
   - Padding: 12px 24px
+  - Hover: Background `#02558410`
+
+### Form Elements
+- Input Fields:
+  - Background: White
+  - Border: 1px solid `#E5E7EB`
+  - Border Radius: 12px
+  - Padding: 12px
+  - Shadow: `0 2px 4px rgba(0, 0, 0, 0.1)`
+  - Focus:
+    - Border Color: `#00D47E`
+    - Ring Color: `#00D47E`
+    - Ring Width: 2px
+- Labels:
+  - Color: `#025584`
+  - Font Size: 14px
+  - Font Weight: Medium
+  - Margin Bottom: 8px
+- Select Dropdowns:
+  - Styling matches Input Fields
+  - Dropdown Icon: `#02558499`
+- Textareas:
+  - Styling matches Input Fields
+  - Min Height: 4 rows
+
+### Chat Interface
+- Message Bubbles:
+  - User Messages:
+    - Background: `#00D47E`
+    - Text Color: White
+    - Timestamp: White with 70% opacity
+  - System Messages:
+    - Background: `#F8FAFC`
+    - Text Color: `#025584`
+    - Timestamp: `#02558499`
+  - Border Radius: 12px
+  - Padding: 16px
+  - Max Width: 70%
+- Chat Input:
+  - Styling matches Input Fields
+  - Send Button: Primary button style
+  - Container Padding: 24px
 
 ### Navigation
 - Background: White

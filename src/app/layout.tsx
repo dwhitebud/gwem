@@ -1,6 +1,7 @@
 import React from 'react'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { Navigation } from '@/components/shared/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="min-h-screen bg-background">
-        {children}
+        <Navigation />
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   )

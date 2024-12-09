@@ -9,21 +9,33 @@ GWEM is built using Next.js 13+ with TypeScript, leveraging the new App Router a
 - TypeScript
 - Tailwind CSS
 - React 18
+- Headless UI
 
 ### Project Structure
 ```
 gwem/
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx      # Root layout component
+│   │   ├── layout.tsx      # Root layout component with global navigation
 │   │   ├── globals.css     # Global styles and Tailwind configuration
 │   │   ├── page.tsx        # Home page component
-│   │   └── portfolio/      # Portfolio management section
-│   │       ├── page.tsx    # Portfolio page component
-│   │       └── layout.tsx  # Portfolio layout component
-│   │   └── tax-planning/    # Tax planning section
-│   │       ├── page.tsx     # Tax planning page component
-│   │       └── layout.tsx   # Tax planning layout component
+│   │   ├── portfolio/      # Portfolio management section
+│   │   │   ├── page.tsx    # Portfolio page component
+│   │   │   └── layout.tsx  # Portfolio layout component
+│   │   ├── tax-planning/   # Tax planning section
+│   │   │   ├── page.tsx    # Tax planning page component
+│   │   │   └── layout.tsx  # Tax planning layout component
+│   │   ├── reports/        # Reports & Analytics section
+│   │   │   ├── page.tsx    # Reports page component
+│   │   │   └── layout.tsx  # Reports layout component
+│   │   └── advisor-hub/    # Advisor Hub section
+│   │       ├── page.tsx    # Main advisor hub page (Chat)
+│   │       ├── email/      # Email composition section
+│   │       │   └── page.tsx
+│   │       ├── schedule/   # Meeting scheduler section
+│   │       │   └── page.tsx
+│   │       └── documents/  # Document sharing section
+│   │           └── page.tsx
 ├── public/                 # Static assets
 ├── product_documentation/  # Product documentation
 └── tailwind.config.js      # Tailwind configuration
@@ -41,6 +53,13 @@ gwem/
 3. Run development server: `npm run dev`
 
 ## Development Guidelines
+
+### Client Components
+When using interactive components or browser APIs:
+1. Add 'use client' directive at the top of the file
+2. Place directive before any imports
+3. Ensure proper TypeScript types for component props and callbacks
+4. Use proper import paths for client-side libraries
 
 ### Design System
 GWEM follows a comprehensive design system inspired by modern financial interfaces:
@@ -68,6 +87,7 @@ Pre-built components using Tailwind classes:
 - Implement proper type definitions
 - Follow ESLint and Prettier configurations
 - Use Tailwind utility classes for styling
+- Add proper type annotations for callback functions
 
 ## Advisor Hub
 
@@ -155,6 +175,144 @@ The tax planning feature follows these key principles:
 - Type-safe implementations using TypeScript
 - Responsive design using Tailwind CSS
 - Real-time updates using React state management
+
+## Risk Analysis
+
+### Overview
+The risk analysis feature provides comprehensive portfolio risk assessment and visualization tools.
+
+### Risk Analysis Components
+
+The risk analysis feature is implemented using several TypeScript components:
+
+#### RiskAnalysisDashboard Component
+- Purpose: Main container component for risk analysis features
+- Location: `src/components/risk-analysis/RiskAnalysisDashboard.tsx`
+- Key Features:
+  - Tabbed interface using Headless UI
+  - Manages navigation between risk analysis views
+  - Client-side component with interactive elements
+
+#### RiskMetrics Component
+- Purpose: Displays key risk indicators and metrics
+- Location: `src/components/risk-analysis/RiskMetrics.tsx`
+- Key Features:
+  - Portfolio Beta tracking
+  - Value at Risk (VaR) calculation
+  - Sharpe Ratio display
+  - Visual indicators for metric changes
+
+#### RiskBreakdown Component
+- Purpose: Visualizes risk distribution across asset classes
+- Location: `src/components/risk-analysis/RiskBreakdown.tsx`
+- Key Features:
+  - D3.js-based bar chart visualization
+  - Interactive data display
+  - Responsive design
+  - Client-side rendering with React hooks
+
+#### RiskTrends Component
+- Purpose: Shows historical risk metrics over time
+- Location: `src/components/risk-analysis/RiskTrends.tsx`
+- Key Features:
+  - D3.js line chart for trend visualization
+  - Interactive data points
+  - Statistical analysis display
+  - Client-side rendering with React hooks
+
+### Implementation Details
+
+The risk analysis feature follows these key principles:
+- Client-side components for interactive visualizations
+- D3.js integration for data visualization
+- Responsive design using Tailwind CSS
+- Type-safe implementations using TypeScript
+- Real-time updates using React state management
+
+### Data Visualization
+- D3.js is used for creating interactive charts
+- SVG-based visualizations for better scaling
+- Responsive design principles for all screen sizes
+- Custom color schemes matching brand guidelines
+
+## Reports & Analytics
+
+### Overview
+The Reports & Analytics section provides comprehensive reporting and analytics capabilities using Headless UI for the tab interface and custom components for various report types.
+
+### Components
+
+#### ReportsDashboard.tsx
+- Main container component using Headless UI Tab components
+- Client-side component with interactive tabs
+- Manages tab state for different report types
+- Implements responsive design using Tailwind CSS
+
+#### PerformanceMetrics.tsx
+- Displays key performance indicators
+- Shows trends and changes over time
+- Uses HeroIcons for visual indicators
+- Responsive grid layout for metrics
+
+#### PortfolioAnalytics.tsx
+- Asset allocation breakdown
+- Sector distribution visualization
+- Progress bar components for percentages
+- Clean, modern design with Tailwind CSS
+
+#### CustomReports.tsx
+- Report generation interface
+- Download functionality for reports
+- List view of available reports
+- Last generated timestamps
+
+### Implementation Details
+
+#### Tab Components
+```typescript
+import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
+
+// Example usage with proper typing
+<Tab
+  className={({ selected }: { selected: boolean }) =>
+    classNames(
+      'base-classes',
+      selected ? 'selected-classes' : 'unselected-classes'
+    )
+  }
+>
+  {/* Tab content */}
+</Tab>
+```
+
+## Component Architecture
+
+### Navigation System
+
+#### Global Navigation
+- Component: `src/components/shared/Navigation.tsx`
+- Purpose: Provides consistent navigation across all pages
+- Features:
+  - Main navigation items (Portfolio, Risk Analysis, Reports, etc.)
+  - Dropdown menus for sub-sections
+  - Active state indicators
+  - Notifications and settings buttons
+  - Contact advisor button
+
+#### Route-Based Navigation
+The application uses Next.js App Router for navigation:
+- Each major section has its own directory in `src/app`
+- Sub-sections are nested directories (e.g., `advisor-hub/email`)
+- Pages use the `page.tsx` convention for routing
+- Layouts (`layout.tsx`) provide section-specific UI wrappers
+
+#### Advisor Hub Navigation
+- Component: `src/components/advisor/AdvisorHub.tsx`
+- Sub-navigation implementation:
+  - Route-based approach using Next.js navigation
+  - URL-driven content rendering
+  - Active state management using `usePathname`
+  - Consistent styling with global navigation
 
 ## Testing Plan
 

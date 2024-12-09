@@ -51,11 +51,11 @@ export default function DocumentSharing() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-medium text-gray-900">Shared Documents</h2>
+        <h2 className="text-2xl font-semibold text-[#025584]">Shared Documents</h2>
         <div className="flex-shrink-0">
           <label
             htmlFor="file-upload"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 cursor-pointer"
+            className="inline-flex items-center px-6 py-3 text-sm font-medium rounded-lg bg-[#00D47E] hover:bg-[#00D47ECC] text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00D47E] cursor-pointer"
           >
             <ArrowUpTrayIcon className="h-5 w-5 mr-2" />
             Upload Document
@@ -70,20 +70,20 @@ export default function DocumentSharing() {
         </div>
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul role="list" className="divide-y divide-gray-200">
+      <div className="bg-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
+        <ul role="list" className="divide-y divide-[#E5E7EB]">
           {documents.map((doc) => (
             <li key={doc.id}>
-              <div className="px-4 py-4 flex items-center sm:px-6">
+              <div className="px-6 py-4 flex items-center">
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <DocumentIcon className="h-8 w-8 text-gray-400" />
+                      <DocumentIcon className="h-8 w-8 text-[#02558499]" />
                     </div>
                     <div className="ml-4">
-                      <p className="font-medium text-teal-600 truncate">{doc.name}</p>
+                      <p className="font-medium text-[#025584] truncate">{doc.name}</p>
                       <div className="mt-2 flex">
-                        <p className="text-sm text-gray-500">
+                        <p className="text-[#02558499]">
                           {doc.size} • {doc.type} •{' '}
                           {doc.uploadedAt.toLocaleDateString()}
                         </p>
@@ -92,12 +92,12 @@ export default function DocumentSharing() {
                   </div>
                   <div className="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
                     <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      className={`inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium ${
                         doc.status === 'shared'
-                          ? 'bg-green-100 text-green-800'
+                          ? 'bg-[#00D47E33] text-[#00D47E]'
                           : doc.status === 'received'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-yellow-100 text-yellow-800'
+                          ? 'bg-[#02558433] text-[#025584]'
+                          : 'bg-[#94A3B833] text-[#94A3B8]'
                       }`}
                     >
                       {doc.status.charAt(0).toUpperCase() + doc.status.slice(1)}

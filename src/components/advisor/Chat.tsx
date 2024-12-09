@@ -47,21 +47,21 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col h-[600px]">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.map((message) => (
           <div
             key={message.id}
             className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[70%] rounded-lg p-3 ${
+              className={`max-w-[70%] rounded-xl p-4 ${
                 message.sender === 'user'
-                  ? 'bg-teal-500 text-white'
-                  : 'bg-gray-100 text-gray-900'
+                  ? 'bg-[#00D47E] text-white'
+                  : 'bg-[#F8FAFC] text-[#025584]'
               }`}
             >
               <p>{message.content}</p>
-              <p className="text-xs mt-1 opacity-70">
+              <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-white/70' : 'text-[#02558499]'}`}>
                 {message.timestamp.toLocaleTimeString()}
               </p>
             </div>
@@ -69,18 +69,18 @@ export default function Chat() {
         ))}
       </div>
 
-      <form onSubmit={handleSendMessage} className="p-4 border-t">
+      <form onSubmit={handleSendMessage} className="p-6 border-t border-[#E5E7EB]">
         <div className="flex space-x-4">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
-            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
+            className="flex-1 rounded-xl border-[#E5E7EB] p-3 shadow-[0_2px_4px_rgba(0,0,0,0.1)] focus:border-[#00D47E] focus:ring-[#00D47E]"
           />
           <button
             type="submit"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            className="inline-flex items-center px-4 py-3 rounded-lg bg-[#00D47E] hover:bg-[#00D47ECC] text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00D47E]"
           >
             <PaperAirplaneIcon className="h-5 w-5" />
           </button>
