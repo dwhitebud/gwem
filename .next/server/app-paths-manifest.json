@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/tax-planning/page": "app/tax-planning/page.js",
+  "/advisor-hub/page": "app/advisor-hub/page.js",
+  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js",
+  "/portfolio/page": "app/portfolio/page.js"
+}

@@ -1,0 +1,178 @@
+'use client';
+
+import React, { useState, useEffect } from "react";
+import Link from 'next/link';
+
+interface PortfolioSummary {
+  totalAssets: number;
+  recentChange: number;
+  lastUpdated: string;
+}
+
+export default function Home() {
+  const [portfolioSummary, setPortfolioSummary] = useState<PortfolioSummary>({
+    totalAssets: 10500000,
+    recentChange: 2.5,
+    lastUpdated: new Date().toLocaleDateString()
+  });
+
+  useEffect(() => {
+    let mounted = true;
+
+    // Any async operations should check the mounted flag
+    const updateData = async () => {
+      if (mounted) {
+        setPortfolioSummary(prev => ({
+          ...prev,
+          lastUpdated: new Date().toLocaleDateString()
+        }));
+      }
+    };
+
+    updateData();
+
+    // Cleanup function
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Top Navigation Bar */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-[1280px] mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-primary text-2xl font-bold">GWEM</h1>
+            <div className="flex items-center space-x-6">
+              <Link href="/portfolio" className="px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 rounded-lg transition-colors">
+                Portfolio
+              </Link>
+              <button className="px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 rounded-lg transition-colors">
+                Notifications
+              </button>
+              <button className="px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 rounded-lg transition-colors">
+                Settings
+              </button>
+              <button className="px-6 py-3 text-sm font-medium text-white bg-secondary hover:bg-secondary/90 rounded-lg transition-colors">
+                Contact Advisor
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="max-w-[1280px] mx-auto px-6 py-8">
+        {/* Portfolio Summary */}
+        <div className="bg-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)] p-6 mb-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-sm font-medium text-primary">Total Assets</h3>
+              <p className="text-2xl font-bold text-primary">
+                ${portfolioSummary.totalAssets.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-primary">Recent Change</h3>
+              <p className={`text-2xl font-bold ${portfolioSummary.recentChange >= 0 ? 'text-secondary' : 'text-red-500'}`}>
+                {portfolioSummary.recentChange}%
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-primary">Last Updated</h3>
+              <p className="text-2xl font-bold text-primary">{portfolioSummary.lastUpdated}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Portfolio Management */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Portfolio Management</h2>
+            <p className="text-primary mb-4">
+              Comprehensive view of your investments, assets, and financial holdings
+            </p>
+            <Link 
+              href="/portfolio" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              View Portfolio →
+            </Link>
+          </div>
+
+          {/* Trust & Corporate Assets */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Trust & Corporate Assets</h2>
+            <p className="text-primary mb-4">
+              Manage complex ownership structures and corporate holdings
+            </p>
+            <Link 
+              href="/portfolio/trust-and-corporate" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              View Trust & Corporate Assets →
+            </Link>
+          </div>
+
+          {/* Advisor Collaboration */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Advisor Hub</h2>
+            <p className="text-primary mb-4">
+              Coordinate with your financial planners and legal advisors
+            </p>
+            <Link 
+              href="/advisor-hub" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              Connect with Advisors →
+            </Link>
+          </div>
+
+          {/* Tax Planning */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Tax Planning</h2>
+            <p className="text-primary mb-4">
+              Strategic tax planning and optimization tools
+            </p>
+            <Link 
+              href="/tax-planning" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              View Tax Strategy →
+            </Link>
+          </div>
+
+          {/* Risk Management */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Risk Analysis</h2>
+            <p className="text-primary mb-4">
+              Monitor and manage investment risks across your portfolio
+            </p>
+            <Link 
+              href="/risk" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              Analyze Risks →
+            </Link>
+          </div>
+
+          {/* Reports & Analytics */}
+          <div className="bg-white rounded-xl p-6 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-primary">Reports & Analytics</h2>
+            <p className="text-primary mb-4">
+              Detailed financial reports and performance analytics
+            </p>
+            <Link 
+              href="/reports" 
+              className="inline-flex items-center text-secondary hover:text-secondary/90 font-medium transition-colors"
+            >
+              View Reports →
+            </Link>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
