@@ -15,7 +15,7 @@ export async function getPortfolioSummary() {
   const lastUpdated = plaidAccounts.reduce((latest: string | null, account) => {
     if (!latest || !account.last_updated) return latest || account.last_updated;
     return account.last_updated > latest ? account.last_updated : latest;
-  }, null);
+  }, null) || new Date().toISOString();
 
   // For now, we'll return a static recent change value
   // In the future, this could be calculated based on historical data
