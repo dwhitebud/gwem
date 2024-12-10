@@ -7,11 +7,7 @@ const globalForPrisma = globalThis as unknown as {
 const prismaClientSingleton = () => {
   return new PrismaClient({
     log: ['query'],
-    datasources: {
-      db: {
-        url: process.env.POSTGRES_PRISMA_URL
-      }
-    }
+    datasourceUrl: process.env.POSTGRES_PRISMA_URL
   })
 }
 
