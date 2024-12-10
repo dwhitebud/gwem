@@ -3,24 +3,26 @@
 import { db } from '@/lib/db'
 
 export async function getPortfolioSummary() {
-  const response = await db.accounts.findAll()
-  const accounts = response.data ?? []
+  // Use test user ID for now
+  const testUserId = 'a50fab64-23f6-4ef9-86a8-bc2b23b031bc';
+  const plaidAccounts = await db.plaidAccounts.findByUserId(testUserId);
 
-  const totalAssets = accounts.reduce((sum: number, account) => 
+  const totalAssets = plaidAccounts.reduce((sum: number, account) => 
     sum + (account.current_balance ?? 0), 
     0
   );
   
-  const lastUpdated = accounts.reduce((latest: string | null, account) => {
-    if (!latest || !account.updated_at) return latest || account.updated_at;
-    return account.updated_at > latest ? account.updated_at : latest;
+  const lastUpdated = plaidAccounts.reduce((latest: string | null, account) => {
+    if (!latest || !account.last_updated) return latest || account.last_updated;
+    return account.last_updated > latest ? account.last_updated : latest;
   }, null);
 
   // For now, we'll return a static recent change value
   // In the future, this could be calculated based on historical data
   return {
     totalAssets,
+    lastUpdated,
     recentChange: 2.5,
-    lastUpdated: lastUpdated ? new Date(lastUpdated).toLocaleDateString() : 'Not available',
-  };
+    accountCount: plaidAccounts.length
+  }
 }
