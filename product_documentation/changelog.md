@@ -116,7 +116,7 @@ All notable changes to GWEM will be documented in this file.
   - /advisor-hub/documents (Document sharing)
 - Enhanced Advisor Hub component organization with proper Next.js routing
 - Updated page metadata for Advisor Hub sub-pages with descriptive titles and descriptions
-- Updated homepage to use real portfolio data from Prisma database
+- Updated homepage to use real portfolio data from Supabase database
 - Improved error handling in portfolio data fetching
 - Enhanced portfolio summary display with loading states
 - Removed mock data from homepage initialization

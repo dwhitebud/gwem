@@ -1,9 +1,12 @@
-import { Account } from '@prisma/client';
+import type { Database } from '@/types/supabase'
+import { db } from '@/lib/db'
+
+type Tables = Database['public']['Tables']
+type Account = Tables['accounts']['Row']
+type PlaidAccount = Tables['plaid_accounts']['Row']
 
 type PortfolioAccount = Account & {
-  plaidAccount: {
-    institutionName: string;
-  };
+  plaidAccount: PlaidAccount
 };
 
 type PortfolioOverviewProps = {
@@ -11,8 +14,8 @@ type PortfolioOverviewProps = {
 };
 
 export default function PortfolioOverview({ accounts }: PortfolioOverviewProps) {
-  const totalAssets = accounts.reduce((sum, account) => sum + (account.currentBalance || 0), 0);
-  const uniqueInstitutions = new Set(accounts.map(acc => acc.plaidAccount.institutionName));
+  const totalAssets = accounts.reduce((sum, account) => sum + (account.current_balance || 0), 0);
+  const uniqueInstitutions = new Set(accounts.map(acc => acc.plaidAccount.institution_name));
 
   return (
     <section className="bg-white rounded-lg shadow-md p-6 mb-6">

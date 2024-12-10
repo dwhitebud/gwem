@@ -1,8 +1,10 @@
-import { Account } from '@prisma/client';
+import type { Database } from '@/types/supabase';
+
+type Account = Database['public']['Tables']['accounts']['Row'];
 
 type PortfolioAccount = Account & {
-  plaidAccount: {
-    institutionName: string;
+  plaid_account?: {
+    institution_name: string;
   };
 };
 
@@ -32,16 +34,16 @@ export default function AccountsByType({ accounts }: AccountsByTypeProps) {
                   <div>
                     <h3 className="text-lg font-medium text-gray-800">{account.name}</h3>
                     <p className="text-sm text-gray-500">
-                      {account.plaidAccount.institutionName} {account.mask ? `••••${account.mask}` : ''}
+                      {account.plaid_account?.institution_name} {account.mask ? `••••${account.mask}` : ''}
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-semibold text-primary">
-                      ${account.currentBalance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) ?? '0.00'}
+                      ${account.current_balance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) ?? '0.00'}
                     </p>
-                    {account.availableBalance !== null && (
+                    {account.available_balance !== null && (
                       <p className="text-sm text-gray-500">
-                        Available: ${account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        Available: ${account.available_balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </p>
                     )}
                   </div>

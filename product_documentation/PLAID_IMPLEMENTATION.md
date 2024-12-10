@@ -19,7 +19,7 @@ GWEM uses Plaid to securely connect and sync financial accounts. This document o
    - Automatic balance updates
 
 3. **Database Integration**
-   - Prisma schema for accounts
+   - Supabase database schema and type definitions
    - Plaid account metadata storage
    - Balance history tracking
    - Institution information storage
@@ -70,29 +70,34 @@ GWEM uses Plaid to securely connect and sync financial accounts. This document o
    - Implements loading states with spinners
 
 ### Database Schema
-```prisma
-model Account {
-  id              String    @id @default(cuid())
-  plaidAccountId  String    @unique
-  name            String
-  type            String
-  subtype         String?
-  mask            String?
-  currentBalance  Float?
-  availableBalance Float?
-  isoCurrencyCode String?
-  lastSyncedAt    DateTime?
-  plaidAccount    PlaidAccount @relation(fields: [plaidAccountId], references: [id])
-}
+```sql
+-- accounts table
+CREATE TABLE accounts (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  plaid_account_id TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  type TEXT NOT NULL,
+  subtype TEXT,
+  mask TEXT,
+  current_balance DECIMAL,
+  available_balance DECIMAL,
+  iso_currency_code TEXT,
+  last_synced_at TIMESTAMPTZ,
+  plaid_account_id_fk UUID REFERENCES plaid_accounts(id)
+);
 
-model PlaidAccount {
-  id              String    @id
-  accessToken     String
-  itemId          String    @unique
-  institutionId   String
-  institutionName String
-  accounts        Account[]
-}
+-- plaid_accounts table
+CREATE TABLE plaid_accounts (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  access_token TEXT NOT NULL,
+  item_id TEXT UNIQUE NOT NULL,
+  institution_id TEXT NOT NULL,
+  institution_name TEXT NOT NULL
+);
+
+-- Enable Row Level Security
+ALTER TABLE accounts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE plaid_accounts ENABLE ROW LEVEL SECURITY;
 ```
 
 ### API Integration
@@ -120,5 +125,5 @@ model PlaidAccount {
 ## Dependencies
 - @plaid/link: Latest version
 - plaid-node: Latest version
-- Prisma: Latest version
+- @supabase/supabase-js: Latest version
 - NextJS: Latest version

@@ -285,6 +285,47 @@ import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 </Tab>
 ```
 
+## Database
+
+### Overview
+GWEM uses Supabase as its primary database solution, providing:
+- PostgreSQL database with type safety
+- Row Level Security (RLS) for data protection
+- Real-time subscriptions
+- Built-in authentication
+
+### Database Structure
+The database is organized into several key tables:
+- `users`: User profiles and authentication
+- `accounts`: Financial accounts linked through Plaid
+- `plaid_accounts`: Plaid integration metadata
+- `transactions`: Financial transactions
+- `tax_entities`: Tax planning related entities
+
+### Type Safety
+- TypeScript types are generated from the Supabase schema
+- Located in `src/types/supabase.ts`
+- Provides full type safety for database operations
+
+### Database Access
+Database operations are centralized in `src/lib/db.ts`, providing:
+- Type-safe database queries
+- Consistent error handling
+- Connection pooling
+- Query optimization
+
+Example usage:
+```typescript
+// Type-safe database query
+const user = await db.users.findUnique(id)
+```
+
+### Security
+- Row Level Security (RLS) policies enforce data access control
+- All database operations require authentication
+- Sensitive data is encrypted at rest
+- Regular security audits and monitoring
+
 ## Component Architecture
 
 ### Navigation System

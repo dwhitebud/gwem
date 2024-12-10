@@ -2,18 +2,39 @@ import Link from 'next/link'
 import PlaidLink from '@/components/PlaidLink'
 import PortfolioOverview from '@/components/portfolio/PortfolioOverview'
 import AccountsByType from '@/components/portfolio/AccountsByType'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/db'
+import type { Database } from '@/types/supabase'
+
+type PlaidAccount = Database['public']['Tables']['plaid_accounts']['Row']
 
 // Configure page options
 export const dynamic = 'force-dynamic'
 
 export default async function PortfolioPage() {
   // Fetch accounts data
-  const accounts = await prisma.account.findMany({
-    include: {
-      plaidAccount: true,
-    },
-  });
+  const { data } = await db.accounts.findAll()
+  const accounts = data?.map(account => {
+    const plaidAccountData = account.plaid_account?.[0] as PlaidAccount | undefined
+    return {
+      ...account,
+      plaidAccount: plaidAccountData || {
+        id: '',
+        user_id: '',
+        institution_id: '',
+        institution_name: '',
+        access_token: '',
+        item_id: '',
+        status: '',
+        error: null,
+        last_synced_at: null,
+        created_at: '',
+        updated_at: ''
+      },
+      plaid_account: plaidAccountData ? {
+        institution_name: plaidAccountData.institution_name
+      } : undefined
+    }
+  }) || []
 
   return (
     <main className="flex min-h-screen flex-col p-6">

@@ -1,23 +1,19 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/db'
 
 export async function getPortfolioSummary() {
-  const accounts = await prisma.account.findMany({
-    select: {
-      currentBalance: true,
-      lastSyncedAt: true,
-    },
-  });
+  const response = await db.accounts.findAll()
+  const accounts = response.data ?? []
 
-  const totalAssets = accounts.reduce((sum: number, account: { currentBalance: number | null }) => 
-    sum + (account.currentBalance ?? 0), 
+  const totalAssets = accounts.reduce((sum: number, account) => 
+    sum + (account.current_balance ?? 0), 
     0
   );
   
-  const lastUpdated = accounts.reduce((latest: Date | null, account: { lastSyncedAt: Date | null }) => {
-    if (!latest || !account.lastSyncedAt) return latest || account.lastSyncedAt;
-    return account.lastSyncedAt > latest ? account.lastSyncedAt : latest;
+  const lastUpdated = accounts.reduce((latest: string | null, account) => {
+    if (!latest || !account.updated_at) return latest || account.updated_at;
+    return account.updated_at > latest ? account.updated_at : latest;
   }, null);
 
   // For now, we'll return a static recent change value
@@ -25,6 +21,6 @@ export async function getPortfolioSummary() {
   return {
     totalAssets,
     recentChange: 2.5,
-    lastUpdated: lastUpdated?.toLocaleDateString() || 'Not available',
+    lastUpdated: lastUpdated ? new Date(lastUpdated).toLocaleDateString() : 'Not available',
   };
 }
