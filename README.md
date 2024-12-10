@@ -20,15 +20,30 @@ A comprehensive financial management platform designed for high net worth indivi
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies:
+2. Copy the environment configuration:
+   ```bash
+   cp .env.example .env.local
+   ```
+3. Set up your environment variables in `.env.local`:
+   - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+   - `PLAID_CLIENT_ID`: Your Plaid client ID
+   - `PLAID_SECRET`: Your Plaid secret key
+   - `PLAID_ENV`: Your Plaid environment (sandbox/development/production)
+
+4. Install dependencies:
    ```bash
    npm install
    ```
-3. Run the development server:
+5. Initialize the database:
+   ```bash
+   npm run db:setup
+   ```
+6. Run the development server:
    ```bash
    npm run dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+7. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Project Structure
 

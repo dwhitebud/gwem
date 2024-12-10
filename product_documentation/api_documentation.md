@@ -13,6 +13,30 @@ Authentication is handled through secure JWT tokens. Include the token in the Au
 Authorization: Bearer <token>
 ```
 
+### Error Codes
+- `401 Unauthorized`: Invalid or missing authentication token
+- `403 Forbidden`: Valid token but insufficient permissions
+- `419 Token Expired`: Authentication token has expired
+- `422 Validation Error`: Invalid request parameters
+
+### Rate Limiting
+The API implements rate limiting to ensure fair usage:
+
+- **Standard Users**:
+  - 100 requests per minute
+  - 5,000 requests per day
+
+- **Premium Users**:
+  - 500 requests per minute
+  - 25,000 requests per day
+
+Rate limit headers are included in all responses:
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1623456789
+```
+
 ## Endpoints
 
 ### GET /api/health
@@ -61,10 +85,6 @@ All API errors follow a standard format:
   }
 }
 ```
-
-## Rate Limiting
-- 100 requests per minute per IP
-- 1000 requests per hour per authenticated user
 
 ## Versioning
 API versioning will be handled through URL prefixing (e.g., /v1/api/...)

@@ -285,6 +285,73 @@ import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 </Tab>
 ```
 
+## Database Schema
+
+### Core Tables
+
+#### users
+- `id`: UUID (Primary Key)
+- `email`: String (Unique)
+- `created_at`: Timestamp
+- `updated_at`: Timestamp
+- `profile_data`: JSONB
+
+#### accounts
+- `id`: UUID (Primary Key)
+- `user_id`: UUID (Foreign Key -> users.id)
+- `plaid_account_id`: String
+- `name`: String
+- `type`: String (checking, savings, investment)
+- `balance`: Decimal
+- `currency`: String
+- `last_synced`: Timestamp
+
+#### plaid_accounts
+- `id`: UUID (Primary Key)
+- `user_id`: UUID (Foreign Key -> users.id)
+- `access_token`: String (Encrypted)
+- `item_id`: String
+- `institution_id`: String
+- `status`: String
+- `created_at`: Timestamp
+- `updated_at`: Timestamp
+
+#### transactions
+- `id`: UUID (Primary Key)
+- `account_id`: UUID (Foreign Key -> accounts.id)
+- `plaid_transaction_id`: String
+- `amount`: Decimal
+- `date`: Date
+- `category`: String[]
+- `merchant_name`: String
+- `pending`: Boolean
+
+## API Routes
+
+### Authentication
+- `POST /api/auth/signup`: Create new user account
+- `POST /api/auth/signin`: Sign in existing user
+- `POST /api/auth/signout`: Sign out user
+- `GET /api/auth/session`: Get current session
+
+### Plaid Integration
+- `POST /api/plaid/create-link-token`: Create Plaid Link token
+- `POST /api/plaid/exchange-token`: Exchange public token for access token
+- `GET /api/plaid/accounts`: Get user's linked accounts
+- `GET /api/plaid/transactions`: Get account transactions
+- `POST /api/plaid/sync`: Force sync of account data
+
+### Portfolio Management
+- `GET /api/portfolio`: Get portfolio overview
+- `GET /api/portfolio/assets`: Get asset allocation
+- `GET /api/portfolio/performance`: Get portfolio performance
+- `POST /api/portfolio/rebalance`: Trigger portfolio rebalancing
+
+### Tax Planning
+- `GET /api/tax/overview`: Get tax planning overview
+- `GET /api/tax/documents`: Get tax documents
+- `POST /api/tax/estimate`: Calculate tax estimates
+
 ## Database
 
 ### Overview

@@ -16,35 +16,42 @@ export async function GET(request: NextRequest) {
 
     // Get all Plaid accounts for the user
     const plaidAccounts = await db.plaidAccounts.findByUserId(userId);
+    console.log('Found Plaid accounts:', plaidAccounts);
 
     // Fetch updated account information from Plaid for each linked account
     const accountPromises = plaidAccounts.map(async (plaidAccount) => {
+      console.log('Fetching accounts for Plaid account:', plaidAccount.id);
+      if (!plaidAccount.access_token) {
+        console.warn('No access token for plaid account:', plaidAccount.id);
+        return [];
+      }
+
       const accountsResponse = await plaidClient.accountsGet({
         access_token: plaidAccount.access_token,
       });
+      console.log('Plaid API response:', accountsResponse.data);
 
-      // Update or create accounts in Supabase
-      const accountUpdatePromises = accountsResponse.data.accounts.map(async (account) => {
-        await db.accounts.create({
-          id: account.account_id,
-          plaid_account_id: plaidAccount.id,
+      // Update the plaid account in Supabase
+      const updatePromises = accountsResponse.data.accounts.map(async (account) => {
+        await db.plaidAccounts.update(plaidAccount.id, {
           name: account.name,
-          official_name: account.official_name || null,
+          official_name: account.official_name,
           type: account.type,
-          subtype: account.subtype || null,
-          mask: account.mask || null,
-          current_balance: account.balances.current || null,
+          subtype: account.subtype,
+          mask: account.mask,
+          current_balance: account.balances.current,
+          available_balance: account.balances.available,
+          iso_currency_code: account.balances.iso_currency_code,
+          last_updated: new Date().toISOString()
         });
       });
 
-      await Promise.all(accountUpdatePromises);
+      await Promise.all(updatePromises);
       return accountsResponse.data.accounts;
     });
 
-    const allAccounts = await Promise.all(accountPromises);
-    const flattenedAccounts = allAccounts.flat();
-
-    return NextResponse.json({ accounts: flattenedAccounts });
+    const accounts = await Promise.all(accountPromises);
+    return NextResponse.json({ accounts: accounts.flat() });
   } catch (error) {
     console.error('Error fetching accounts:', error);
     return NextResponse.json(

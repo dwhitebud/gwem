@@ -29,50 +29,54 @@ export interface Database {
           updated_at?: string
         }
       }
-      plaid_accounts: {
+      plaid_items: {
         Row: {
           id: string
           user_id: string
-          institution_id: string
+          plaid_item_id: string
+          plaid_access_token: string
+          plaid_institution_id: string
           institution_name: string
-          access_token: string
-          item_id: string
           status: string
-          error: string | null
-          last_synced_at: string | null
+          error_code: string | null
+          error_message: string | null
+          last_successful_update: string | null
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           user_id: string
-          institution_id: string
+          plaid_item_id: string
+          plaid_access_token: string
+          plaid_institution_id: string
           institution_name: string
-          access_token: string
-          item_id: string
           status?: string
-          error?: string | null
-          last_synced_at?: string | null
+          error_code?: string | null
+          error_message?: string | null
+          last_successful_update?: string | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           user_id?: string
-          institution_id?: string
+          plaid_item_id?: string
+          plaid_access_token?: string
+          plaid_institution_id?: string
           institution_name?: string
-          access_token?: string
-          item_id?: string
           status?: string
-          error?: string | null
-          last_synced_at?: string | null
+          error_code?: string | null
+          error_message?: string | null
+          last_successful_update?: string | null
           created_at?: string
           updated_at?: string
         }
       }
-      accounts: {
+      plaid_accounts: {
         Row: {
           id: string
+          plaid_item_id: string
           plaid_account_id: string
           name: string
           official_name: string | null
@@ -81,11 +85,14 @@ export interface Database {
           mask: string | null
           current_balance: number | null
           available_balance: number | null
+          iso_currency_code: string | null
+          last_updated: string | null
           created_at: string
           updated_at: string
         }
         Insert: {
-          id: string
+          id?: string
+          plaid_item_id: string
           plaid_account_id: string
           name: string
           official_name?: string | null
@@ -94,11 +101,14 @@ export interface Database {
           mask?: string | null
           current_balance?: number | null
           available_balance?: number | null
+          iso_currency_code?: string | null
+          last_updated?: string | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
+          plaid_item_id?: string
           plaid_account_id?: string
           name?: string
           official_name?: string | null
@@ -107,50 +117,64 @@ export interface Database {
           mask?: string | null
           current_balance?: number | null
           available_balance?: number | null
+          iso_currency_code?: string | null
+          last_updated?: string | null
           created_at?: string
           updated_at?: string
         }
       }
-      transactions: {
+      plaid_transactions: {
         Row: {
           id: string
-          account_id: string
-          user_id: string
+          plaid_account_id: string
+          plaid_transaction_id: string
           amount: number
           date: string
           name: string
           merchant_name: string | null
+          payment_channel: string | null
           pending: boolean
-          type: string | null
-          category: string | null
+          transaction_type: string | null
+          category_id: string | null
+          category: string[] | null
+          location: Json | null
+          payment_meta: Json | null
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          account_id: string
-          user_id: string
+          plaid_account_id: string
+          plaid_transaction_id: string
           amount: number
           date: string
           name: string
           merchant_name?: string | null
+          payment_channel?: string | null
           pending?: boolean
-          type?: string | null
-          category?: string | null
+          transaction_type?: string | null
+          category_id?: string | null
+          category?: string[] | null
+          location?: Json | null
+          payment_meta?: Json | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          account_id?: string
-          user_id?: string
+          plaid_account_id?: string
+          plaid_transaction_id?: string
           amount?: number
           date?: string
           name?: string
           merchant_name?: string | null
+          payment_channel?: string | null
           pending?: boolean
-          type?: string | null
-          category?: string | null
+          transaction_type?: string | null
+          category_id?: string | null
+          category?: string[] | null
+          location?: Json | null
+          payment_meta?: Json | null
           created_at?: string
           updated_at?: string
         }

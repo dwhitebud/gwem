@@ -31,6 +31,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/plaid/exchange-token/route.js"
     ],
+    "/api/plaid/accounts/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/plaid/accounts/route.js"
+    ],
+    "/api/plaid/items/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/plaid/items/route.js"
+    ],
     "/risk-analysis/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -40,11 +50,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/risk-analysis/page.js"
-    ],
-    "/portfolio/trust-and-corporate/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/portfolio/trust-and-corporate/page.js"
     ],
     "/reports/layout": [
       "static/chunks/webpack.js",
@@ -66,20 +71,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/advisor-hub/page.js"
     ],
-    "/advisor-hub/email/page": [
+    "/portfolio/trust-and-corporate/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/email/page.js"
+      "static/chunks/app/portfolio/trust-and-corporate/page.js"
     ],
-    "/advisor-hub/schedule/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/schedule/page.js"
-    ],
-    "/advisor-hub/documents/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/advisor-hub/documents/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

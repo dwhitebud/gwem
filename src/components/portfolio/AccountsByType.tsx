@@ -1,58 +1,62 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import type { Database } from '@/types/supabase';
+import { db } from '@/lib/db';
 
-type Account = Database['public']['Tables']['accounts']['Row'];
-
-type PortfolioAccount = Account & {
-  plaid_account?: {
-    institution_name: string;
-  };
+type Tables = Database['public']['Tables']
+type PlaidAccount = Tables['plaid_accounts']['Row'] & {
+  institution_name?: string;
 };
 
-type AccountsByTypeProps = {
-  accounts: PortfolioAccount[];
-};
+type PlaidItem = Tables['plaid_items']['Row'];
 
-export default function AccountsByType({ accounts }: AccountsByTypeProps) {
-  const accountsByType = accounts.reduce((acc, account) => {
-    const type = account.type;
+export default function AccountsByType() {
+  const [accounts, setAccounts] = useState<PlaidAccount[]>([]);
+  const [plaidItems, setPlaidItems] = useState<PlaidItem[]>([]);
+  const testUserId = 'a50fab64-23f6-4ef9-86a8-bc2b23b031bc';
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch accounts from API route
+        const response = await fetch(`/api/plaid/accounts?userId=${testUserId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch accounts');
+        }
+        const data = await response.json();
+        console.log('Raw accounts data:', data);
+        const accountsArray = data.accounts || [];
+        setAccounts(accountsArray);
+
+        // Fetch plaid items from API route
+        const itemsResponse = await fetch(`/api/plaid/items?userId=${testUserId}`);
+        if (!itemsResponse.ok) {
+          throw new Error('Failed to fetch plaid items');
+        }
+        const itemsData = await itemsResponse.json();
+        console.log('Raw plaid items data:', itemsData);
+        setPlaidItems(Array.isArray(itemsData) ? itemsData : []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setAccounts([]);
+        setPlaidItems([]);
+      }
+    }
+    fetchData();
+  }, []);
+
+  console.log('AccountsByType current accounts:', accounts);
+
+  // Ensure accounts is an array before reducing
+  const accountsByType = (Array.isArray(accounts) ? accounts : []).reduce((acc, account) => {
+    const type = account?.type || 'unknown';
     if (!acc[type]) acc[type] = [];
     acc[type].push(account);
     return acc;
-  }, {} as Record<string, PortfolioAccount[]>);
+  }, {} as Record<string, PlaidAccount[]>);
 
-  return (
-    <>
-      {Object.entries(accountsByType).map(([type, typeAccounts]) => (
-        <section key={type} className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 capitalize">
-            {type} Accounts
-          </h2>
-          <div className="space-y-4">
-            {typeAccounts.map((account) => (
-              <div key={account.id} className="border rounded-lg p-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">{account.name}</h3>
-                    <p className="text-sm text-gray-500">
-                      {account.plaid_account?.institution_name} {account.mask ? `••••${account.mask}` : ''}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-semibold text-primary">
-                      ${account.current_balance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) ?? '0.00'}
-                    </p>
-                    {account.available_balance !== null && (
-                      <p className="text-sm text-gray-500">
-                        Available: ${account.available_balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      ))}
-    </>
-  );
+  console.log('Grouped accounts by type:', accountsByType);
+
+  return null;
 }
