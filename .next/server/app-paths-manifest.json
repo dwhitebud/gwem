@@ -1,14 +1,14 @@
 {
   "/api/plaid/link-token/route": "app/api/plaid/link-token/route.js",
+  "/api/plaid/exchange-token/route": "app/api/plaid/exchange-token/route.js",
   "/api/plaid/accounts/route": "app/api/plaid/accounts/route.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/api/plaid/items/route": "app/api/plaid/items/route.js",
-  "/api/plaid/exchange-token/route": "app/api/plaid/exchange-token/route.js",
+  "/page": "app/page.js",
   "/tax-planning/page": "app/tax-planning/page.js",
   "/advisor-hub/page": "app/advisor-hub/page.js",
-  "/page": "app/page.js",
-  "/risk-analysis/page": "app/risk-analysis/page.js",
-  "/reports/page": "app/reports/page.js",
   "/portfolio/page": "app/portfolio/page.js",
-  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js"
+  "/reports/page": "app/reports/page.js",
+  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js",
+  "/risk-analysis/page": "app/risk-analysis/page.js"
 }
