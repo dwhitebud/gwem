@@ -1,12 +1,16 @@
 // This is your Prisma schema file
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
+  // Enable connection pooling
+  relationMode = "prisma"
 }
 
 generator client {
   provider = "prisma-client-js"
+  // Enable edge runtime compatibility
+  previewFeatures = ["driverAdapters"]
 }
 
 model User {
