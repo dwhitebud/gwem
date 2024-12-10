@@ -25,6 +25,6 @@ export async function getPortfolioSummary() {
   return {
     totalAssets,
     recentChange: 2.5,
-    lastUpdated: lastUpdated?.toLocaleDateString(),
+    lastUpdated: lastUpdated?.toLocaleDateString() || 'Not available',
   };
 }
