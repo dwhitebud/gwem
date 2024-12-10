@@ -70,6 +70,10 @@ All notable changes to GWEM will be documented in this file.
   - CustomReports component for report generation
 - Added @headlessui/react for tab components
 - Added @heroicons/react for UI icons
+- Server action for fetching portfolio data (getPortfolioSummary)
+- New UI Spinner component with brand-consistent design
+- Real-time portfolio data integration in homepage dashboard
+- Dynamic loading states with spinners for better UX
 
 ### Changed
 - Updated global CSS with new design system implementation
@@ -112,6 +116,10 @@ All notable changes to GWEM will be documented in this file.
   - /advisor-hub/documents (Document sharing)
 - Enhanced Advisor Hub component organization with proper Next.js routing
 - Updated page metadata for Advisor Hub sub-pages with descriptive titles and descriptions
+- Updated homepage to use real portfolio data from Prisma database
+- Improved error handling in portfolio data fetching
+- Enhanced portfolio summary display with loading states
+- Removed mock data from homepage initialization
 
 ### Deprecated
 - Previous global CSS styling approach
@@ -126,3 +134,6 @@ All notable changes to GWEM will be documented in this file.
 - Fixed module resolution issues with @headlessui/react Tab components
 - Resolved client component function passing issues in ReportsDashboard
 - Fixed tab component rendering in Reports page
+- Resolved async/await issues in server components
+- Fixed 'use server' directive placement in components
+- Improved data fetching patterns in client components

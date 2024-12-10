@@ -1,9 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/api/plaid/link-token/route": "app/api/plaid/link-token/route.js",
-  "/api/plaid/exchange-token/route": "app/api/plaid/exchange-token/route.js",
   "/page": "app/page.js",
+  "/tax-planning/page": "app/tax-planning/page.js",
+  "/portfolio/trust-and-corporate/page": "app/portfolio/trust-and-corporate/page.js",
+  "/reports/page": "app/reports/page.js",
   "/portfolio/page": "app/portfolio/page.js",
-  "/risk-analysis/page": "app/risk-analysis/page.js",
-  "/reports/page": "app/reports/page.js"
+  "/risk-analysis/page": "app/risk-analysis/page.js"
 }

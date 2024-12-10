@@ -21,10 +21,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/portfolio/page.js"
     ],
-    "/api/plaid/link-token/route": [
+    "/portfolio/trust-and-corporate/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/plaid/link-token/route.js"
+      "static/chunks/app/portfolio/trust-and-corporate/page.js"
     ],
     "/risk-analysis/layout": [
       "static/chunks/webpack.js",
@@ -46,15 +46,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/reports/page.js"
     ],
-    "/api/plaid/exchange-token/route": [
+    "/tax-planning/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/plaid/exchange-token/route.js"
+      "static/chunks/app/tax-planning/page.js"
     ],
-    "/_not-found/page": [
+    "/api/plaid/link-token/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/api/plaid/link-token/route.js"
     ]
   }
 }

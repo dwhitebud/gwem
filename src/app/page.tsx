@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
+import { getPortfolioSummary } from './actions';
+import Spinner from '@/components/ui/Spinner';
 
 interface PortfolioSummary {
   totalAssets: number;
@@ -10,28 +12,24 @@ interface PortfolioSummary {
 }
 
 export default function Home() {
-  const [portfolioSummary, setPortfolioSummary] = useState<PortfolioSummary>({
-    totalAssets: 10500000,
-    recentChange: 2.5,
-    lastUpdated: new Date().toLocaleDateString()
-  });
+  const [portfolioSummary, setPortfolioSummary] = useState<PortfolioSummary | null>(null);
 
   useEffect(() => {
     let mounted = true;
 
-    // Any async operations should check the mounted flag
-    const updateData = async () => {
-      if (mounted) {
-        setPortfolioSummary(prev => ({
-          ...prev,
-          lastUpdated: new Date().toLocaleDateString()
-        }));
+    const fetchPortfolioData = async () => {
+      try {
+        const data = await getPortfolioSummary();
+        if (mounted) {
+          setPortfolioSummary(data);
+        }
+      } catch (error) {
+        console.error('Error fetching portfolio data:', error);
       }
     };
 
-    updateData();
+    fetchPortfolioData();
 
-    // Cleanup function
     return () => {
       mounted = false;
     };
@@ -48,19 +46,37 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <h3 className="text-sm font-medium text-primary">Total Assets</h3>
-                <p className="text-2xl font-bold text-primary">
-                  ${portfolioSummary.totalAssets.toLocaleString()}
-                </p>
+                {portfolioSummary ? (
+                  <p className="text-2xl font-bold text-primary">
+                    ${portfolioSummary.totalAssets.toLocaleString()}
+                  </p>
+                ) : (
+                  <div className="h-8 flex items-center">
+                    <Spinner size="sm" />
+                  </div>
+                )}
               </div>
               <div>
                 <h3 className="text-sm font-medium text-primary">Recent Change</h3>
-                <p className={`text-2xl font-bold ${portfolioSummary.recentChange >= 0 ? 'text-secondary' : 'text-red-500'}`}>
-                  {portfolioSummary.recentChange}%
-                </p>
+                {portfolioSummary ? (
+                  <p className={`text-2xl font-bold ${portfolioSummary.recentChange >= 0 ? 'text-secondary' : 'text-red-500'}`}>
+                    {portfolioSummary.recentChange}%
+                  </p>
+                ) : (
+                  <div className="h-8 flex items-center">
+                    <Spinner size="sm" />
+                  </div>
+                )}
               </div>
               <div>
                 <h3 className="text-sm font-medium text-primary">Last Updated</h3>
-                <p className="text-2xl font-bold text-primary">{portfolioSummary.lastUpdated}</p>
+                {portfolioSummary ? (
+                  <p className="text-2xl font-bold text-primary">{portfolioSummary.lastUpdated}</p>
+                ) : (
+                  <div className="h-8 flex items-center">
+                    <Spinner size="sm" />
+                  </div>
+                )}
               </div>
             </div>
           </div>

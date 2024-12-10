@@ -1,9 +1,20 @@
-'use client';
-
 import Link from 'next/link'
 import PlaidLink from '@/components/PlaidLink'
+import PortfolioOverview from '@/components/portfolio/PortfolioOverview'
+import AccountsByType from '@/components/portfolio/AccountsByType'
+import { prisma } from '@/lib/prisma'
 
-export default function PortfolioPage() {
+// Configure page options
+export const dynamic = 'force-dynamic'
+
+export default async function PortfolioPage() {
+  // Fetch accounts data
+  const accounts = await prisma.account.findMany({
+    include: {
+      plaidAccount: true,
+    },
+  });
+
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="container mx-auto">
@@ -26,50 +37,21 @@ export default function PortfolioPage() {
         </nav>
 
         {/* Connect Accounts Section */}
-        <section className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Connect Your Accounts</h2>
-          <p className="text-gray-600 mb-4">
-            Connect your financial accounts to get a comprehensive view of your portfolio.
-          </p>
-          <PlaidLink />
-        </section>
+        {accounts.length === 0 ? (
+          <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Connect Your Accounts</h2>
+            <p className="text-gray-600 mb-4">
+              Connect your financial accounts to get a comprehensive view of your portfolio.
+            </p>
+            <PlaidLink />
+          </section>
+        ) : null}
         
         {/* Portfolio Overview Section */}
-        <section className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Overview</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-700">Total Assets</h3>
-              <p className="text-2xl font-bold text-primary">$0.00</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-700">Performance (YTD)</h3>
-              <p className="text-2xl font-bold text-green-600">+0.00%</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-700">Risk Score</h3>
-              <p className="text-2xl font-bold text-primary">N/A</p>
-            </div>
-          </div>
-        </section>
+        <PortfolioOverview accounts={accounts} />
 
-        {/* Asset Allocation Section */}
-        <section className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Allocation</h2>
-          <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-            <p className="text-gray-500">Asset allocation chart will be displayed here</p>
-          </div>
-        </section>
-
-        {/* Recent Activities Section */}
-        <section className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Activities</h2>
-          <div className="border rounded-lg">
-            <div className="px-4 py-3 border-b">
-              <p className="text-gray-500">No recent activities</p>
-            </div>
-          </div>
-        </section>
+        {/* Accounts By Type Section */}
+        <AccountsByType accounts={accounts} />
       </div>
     </main>
   )
